@@ -3,6 +3,8 @@ import boto3
 import base64
 import time
 
+textToConvert=""
+
 def generateAudioFromText(text):
     polly= boto3.client('polly')
     response= polly.synthesize_speech(  Text=text,
@@ -18,38 +20,49 @@ def generateAudioFromText(text):
     
     
 def getTextToConvert(text):
-    print('hello world')
+    global textToConvert
+    textToConvert= text
     
 def lambda_handler(event, context):
     #audio_base64 = generateAudioFromText("Hello world!, My name is Malek and I am a cloud Engineer, nice to meet you!")
-    #request= str(event.get("requestContext").get("http").get("method"))
-    #request=event.get("requestContext").get("http").get("method")
-    request=""
-    if request == "GET":
-        return {
-            'statusCode': 200,
-            'headers': {
-                    'Content-Type': 'audio/mpeg',
+    try:
+        print(event)
+        print(textToConvert)
+        request=event.get("requestContext").get("http").get("method")
+        #request= event['httpMethod']
+        if request == "GET":
+            return {
+                'statusCode': 200,
+                'headers': {
+                        'Content-Type': 'audio/mpeg',
+                    },
+                # 'body': audio_base64 | None,
+                'body': generateAudioFromText(textToConvert),
+                'isBase64Encoded': True 
+            }
+        elif request == "POST":
+            getTextToConvert(event.get("body"))
+            #audio_base64= generateAudioFromText(text)
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Content-Type': 'application/json',
                 },
-            # 'body': audio_base64 | None,
-            'body': json.dumps(event),
-            'isBase64Encoded': True 
-        }
-    elif request == "POST":
-        text=event.get("body")
-        audio_base64= generateAudioFromText(text)
+                'body': None
+            }
+        else :
+            return {
+                'statusCode': 404,
+                'headers': {
+                    'Content-Type': 'application/json',
+                },
+                'body': event
+            }
+    except Exception as e:
         return {
             'statusCode': 200,
             'headers': {
-                'Content-Type': 'application/json',
-            },
-            'body': None
-        }
-    else :
-        return {
-            'statusCode': 404,
-            'headers': {
-                'Content-Type': 'application/json',
-            },
-            'body': json.dumps(event)
+                    'Content-Type': 'application/json',
+                },
+            'body': json.dumps(str(e))
         }
