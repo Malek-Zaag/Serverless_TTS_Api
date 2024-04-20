@@ -48,7 +48,7 @@ def lambda_handler(event, context):
                 'headers': {
                     'Content-Type': 'application/json',
                 },
-                'body': None
+                'body': "Text to convert was uploaded successfully"
             }
         else :
             return {
@@ -66,3 +66,4 @@ def lambda_handler(event, context):
                 },
             'body': json.dumps(str(e))
         }
+        
