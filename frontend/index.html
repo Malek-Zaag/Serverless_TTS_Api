@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paragraph Form</title>
+  </head>
+  <body>
+    <h1>Enter a Paragraph</h1>
+    <form id="paragraphForm">
+      <textarea
+        id="paragraphInput"
+        rows="6"
+        cols="50"
+        placeholder="Enter your paragraph here..."
+      ></textarea>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="displayParagraph"></div>
+
+    <script>
+      document
+        .getElementById("paragraphForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var paragraph = document.getElementById("paragraphInput").value;
+          displayParagraph(paragraph);
+        });
+
+      function displayParagraph(paragraph) {
+        var displayDiv = document.getElementById("displayParagraph");
+        displayDiv.innerHTML =
+          "<h2>Your Paragraph:</h2><p>" + paragraph + "</p>";
+      }
+    </script>
+  </body>
+</html>
