@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Enter a Paragraph</h1>
-    <form id="paragraphForm">
+    <form id="paragraphForm" onsubmit="sendToAPIGateway">
       <textarea
         id="paragraphInput"
         rows="6"
@@ -33,6 +33,9 @@
         var displayDiv = document.getElementById("displayParagraph");
         displayDiv.innerHTML =
           "<h2>Your Paragraph:</h2><p>" + paragraph + "</p>";
+      }
+      function sendToAPIGateway() {
+        var textToConvert = document.getElementById("paragraphInput").value;
       }
     </script>
   </body>
