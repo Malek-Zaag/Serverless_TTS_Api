@@ -17,7 +17,7 @@ def generateAudioFromText(text):
     
 def lambda_handler(event, context):
     # TODO implement
-    audio_base64 = generateAudioFromText("Hello world!")
+    audio_base64 = generateAudioFromText("Hello world!, My name is Malek and I am a cloud Engineer, nice to meet you!")
     return {
         'statusCode': 200,
         #'body': json.dumps(base64.b64encode(response).decode('utf-8')+)
