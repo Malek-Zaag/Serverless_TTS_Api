@@ -9,6 +9,7 @@ def generateAudioFromText(text):
     polly= boto3.client('polly')
     response= polly.synthesize_speech(  Text=text,
                                         TextType = "text",
+                                        LanguageCode= "en-US",
                                         OutputFormat='mp3', 
                                         VoiceId='Bianca')
     audio_stream = response['AudioStream'].read()
