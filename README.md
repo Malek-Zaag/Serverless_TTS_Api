@@ -1,5 +1,5 @@
 
-# Serverless text-to-speech API with AWS API Gateway and CloudFront≡ƒñû
+# Serverless text-to-speech API with AWS API Gateway and CloudFront
 
 
 
